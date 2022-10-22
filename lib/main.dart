@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: getTheme(),
-        home: ProductOverviewScreen(),
+        home: const ProductOverviewScreen(),
         routes: {
           ProductDetailScreen.route: (context) => const ProductDetailScreen()
         },
