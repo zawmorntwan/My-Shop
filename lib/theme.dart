@@ -9,7 +9,7 @@ ThemeData getTheme() {
     primaryColor: primaryColor,
 
     appBarTheme: const AppBarTheme(
-      backgroundColor: appBarBackgroundColor,
+      backgroundColor: primaryColor,
       elevation: 0,
     ),
 
