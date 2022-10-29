@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:my_shop/widgets/badge.dart';
+import 'package:provider/provider.dart';
 
+import '../providers/cart.dart';
 import '../widgets/product_grid.dart';
 
 enum FliterOptions {
@@ -22,6 +25,16 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
       appBar: AppBar(
         title: const Text('My Shop'),
         actions: [
+          Consumer<Cart>(
+            builder: (_, cartData, ch) => Badge(
+              value: cartData.itemCount.toString(),
+              child: ch!,
+            ),
+            child: IconButton(
+              icon: const Icon(Icons.shopping_cart),
+              onPressed: () {},
+            ),
+          ),
           PopupMenuButton(
             onSelected: (FliterOptions selectedValue) {
               setState(() {
@@ -43,7 +56,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                 child: Text('Show all'),
               )
             ],
-          )
+          ),
         ],
       ),
       body: ProductGrid(_showFavoritesOnly),
