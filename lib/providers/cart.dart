@@ -60,6 +60,5 @@ class Cart with ChangeNotifier {
       );
     }
     notifyListeners();
-    // log(_items.length.toString());
   }
 }
