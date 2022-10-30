@@ -14,5 +14,6 @@ ThemeData getTheme() {
     ),
 
     scaffoldBackgroundColor: Colors.white,
+    errorColor: const Color(0xffF86666)
   );
 }
