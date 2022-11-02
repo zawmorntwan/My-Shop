@@ -3,6 +3,7 @@ import 'package:my_shop/constants.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/cart.dart' show Cart;
+import '../providers/orders.dart';
 import '../widgets/cart_item.dart';
 
 class CartScreen extends StatelessWidget {
@@ -40,7 +41,13 @@ class CartScreen extends StatelessWidget {
                     backgroundColor: hightLightColor,
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Provider.of<Orders>(context, listen: false).addOrder(
+                        cart.items.values.toList(),
+                        cart.totalAmount,
+                      );
+                      cart.clear();
+                    },
                     child: Text(
                       'ORDER NOW',
                       style: TextStyle(
@@ -59,7 +66,7 @@ class CartScreen extends StatelessWidget {
             child: ListView.builder(
               physics: const BouncingScrollPhysics(),
               itemCount: cart.items.length,
-              itemBuilder: (ctx, i) => CartItem(
+              itemBuilder: (ctx, i) => CartItemWidget(
                 id: cart.items.values.toList()[i].id,
                 productId: cart.items.keys.toList()[i],
                 title: cart.items.values.toList()[i].title,
