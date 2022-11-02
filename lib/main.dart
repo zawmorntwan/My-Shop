@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:my_shop/screens/cart_screen.dart';
-import 'package:my_shop/screens/product_detail_screen.dart';
-import 'package:my_shop/screens/product_overview_screen.dart';
-import 'package:my_shop/theme.dart';
 import 'package:provider/provider.dart';
+
 import './providers/products.dart';
 import './providers/cart.dart';
+import 'providers/orders.dart';
+import 'screens/cart_screen.dart';
+import 'screens/product_detail_screen.dart';
+import 'screens/product_overview_screen.dart';
+import 'theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +21,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create : (ctx) => Products()),
-        ChangeNotifierProvider(create : (ctx) => Cart())
+        ChangeNotifierProvider(create : (ctx) => Cart()),
+        ChangeNotifierProvider(create: (ctx) => Orders()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
