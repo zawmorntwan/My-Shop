@@ -6,8 +6,8 @@ import '../providers/cart.dart';
 import '../providers/product.dart';
 import '../screens/product_detail_screen.dart';
 
-class ProductItem extends StatelessWidget {
-  const ProductItem({Key? key}) : super(key: key);
+class ProductCard extends StatelessWidget {
+  const ProductCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

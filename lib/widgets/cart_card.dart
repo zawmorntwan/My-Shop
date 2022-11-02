@@ -4,13 +4,13 @@ import 'package:provider/provider.dart';
 import '../constants.dart';
 import '../providers/cart.dart';
 
-class CartItemWidget extends StatelessWidget {
+class CartCard extends StatelessWidget {
   final String id;
   final String productId;
   final double price;
   final int quantity;
   final String title;
-  const CartItemWidget({
+  const CartCard({
     required this.id,
     required this.productId,
     required this.price,

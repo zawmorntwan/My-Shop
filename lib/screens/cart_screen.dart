@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../providers/cart.dart' show Cart;
 import '../providers/orders.dart';
-import '../widgets/cart_item.dart';
+import '../widgets/cart_card.dart';
 
 class CartScreen extends StatelessWidget {
   static const route = '/cart';
@@ -66,7 +66,7 @@ class CartScreen extends StatelessWidget {
             child: ListView.builder(
               physics: const BouncingScrollPhysics(),
               itemCount: cart.items.length,
-              itemBuilder: (ctx, i) => CartItemWidget(
+              itemBuilder: (ctx, i) => CartCard(
                 id: cart.items.values.toList()[i].id,
                 productId: cart.items.keys.toList()[i],
                 title: cart.items.values.toList()[i].title,
