@@ -15,7 +15,7 @@ class UserProductItem extends StatelessWidget {
           imageUrl,
         ),
       ),
-      trailing: Container(
+      trailing: SizedBox(
         width: 100,
         child: Row(
           children: [
@@ -29,7 +29,7 @@ class UserProductItem extends StatelessWidget {
             IconButton(
               onPressed: () {},
               icon: Icon(
-                Icons.delete_outline,
+                Icons.delete,
                 color: Theme.of(context).errorColor,
               ),
             )
