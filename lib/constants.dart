@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const String authority = 'https://my-shop-9881c-default-rtdb.asia-southeast1.firebasedatabase.app';
+const String mainUrl = 'https://my-shop-9881c-default-rtdb.asia-southeast1.firebasedatabase.app';
 
 const String lato = 'Lato';
 const String anton = 'Anton';

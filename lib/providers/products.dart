@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -51,12 +52,12 @@ class Products with ChangeNotifier {
     return _items.where((product) => product.isFavorite).toList();
   }
 
-  void addProduct(Product product) {
+  Future<void> addProduct(Product product) {
     Uri url = Uri.parse(
-      '$authority/products.json',
+      '$mainUrl/products.json',
     );
 
-    http
+    return http
         .post(
       url,
       body: json.encode(
@@ -81,7 +82,10 @@ class Products with ChangeNotifier {
         _items.add(newProduct);
         notifyListeners();
       },
-    );
+    ).catchError((error) {
+      log('Error: $error');
+      throw error;
+    });
   }
 
   Product findById(String id) {
