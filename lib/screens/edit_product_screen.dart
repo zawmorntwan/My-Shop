@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_shop/constants.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/product.dart';
@@ -110,7 +111,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
         await Provider.of<Products>(context, listen: false)
             .addProduct(_editedProduct);
       } catch (error) {
-        await showDialog<Null>(
+        await showDialog(
           context: context,
           builder: (ctx) => AlertDialog(
             title: const Text('An error occured!'),
@@ -150,7 +151,9 @@ class _EditProductScreenState extends State<EditProductScreen> {
       ),
       body: _isLoading
           ? const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                color: primaryColor,
+              ),
             )
           : Padding(
               padding: const EdgeInsets.all(16.0),
