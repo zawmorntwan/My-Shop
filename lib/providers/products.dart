@@ -1,7 +1,11 @@
 // ignore_for_file: avoid_print
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:my_shop/providers/product.dart';
+import 'package:http/http.dart' as http;
+
+import '../constants.dart';
+import 'product.dart';
 
 class Products with ChangeNotifier {
   final List<Product> _items = [
@@ -48,15 +52,36 @@ class Products with ChangeNotifier {
   }
 
   void addProduct(Product product) {
-    final newProduct = Product(
-      id: DateTime.now().toString(),
-      title: product.title,
-      description: product.description,
-      price: product.price,
-      imageUrl: product.imageUrl,
+    Uri url = Uri.parse(
+      '$authority/products.json',
     );
-    _items.add(newProduct);
-    notifyListeners();
+
+    http
+        .post(
+      url,
+      body: json.encode(
+        {
+          'title': product.title,
+          'description': product.description,
+          'imageUrl': product.imageUrl,
+          'price': product.price,
+          'isFavorite': product.isFavorite,
+        },
+      ),
+    )
+        .then(
+      (response) {
+        final newProduct = Product(
+          id: json.decode(response.body)['name'],
+          title: product.title,
+          description: product.description,
+          price: product.price,
+          imageUrl: product.imageUrl,
+        );
+        _items.add(newProduct);
+        notifyListeners();
+      },
+    );
   }
 
   Product findById(String id) {
