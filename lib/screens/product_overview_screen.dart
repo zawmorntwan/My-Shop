@@ -51,7 +51,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Shop'),
+        title: const Text(appName),
         actions: [
           Consumer<Cart>(
             builder: (_, cartData, ch) {
