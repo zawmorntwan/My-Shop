@@ -11,6 +11,7 @@ import 'screens/cart_screen.dart';
 import 'screens/edit_product_screen.dart';
 import 'screens/orders_screen.dart';
 import 'screens/product_detail_screen.dart';
+import 'screens/product_overview_screen.dart';
 import 'screens/user_products_screen.dart';
 import 'theme.dart';
 
@@ -30,18 +31,20 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (ctx) => Orders()),
         ChangeNotifierProvider(create: (ctx) => Auth())
       ],
-      child: MaterialApp(
-        title: appName,
-        theme: getTheme(),
-        home: const AuthScreen(),
-        routes: {
-          ProductDetailScreen.route: (context) => const ProductDetailScreen(),
-          CartScreen.route: (context) => const CartScreen(),
-          OrdersScreen.route: (context) => const OrdersScreen(),
-          UserProductsScreen.route: (context) => const UserProductsScreen(),
-          EditProductScreen.route: (context) => const EditProductScreen(),
-        },
-        debugShowCheckedModeBanner: false,
+      child: Consumer<Auth>(
+        builder: (ctx, auth, _) => MaterialApp(
+          title: appName,
+          theme: getTheme(),
+          home: auth.isAuth ? const ProductOverviewScreen() : const AuthScreen(),
+          routes: {
+            ProductDetailScreen.route: (context) => const ProductDetailScreen(),
+            CartScreen.route: (context) => const CartScreen(),
+            OrdersScreen.route: (context) => const OrdersScreen(),
+            UserProductsScreen.route: (context) => const UserProductsScreen(),
+            EditProductScreen.route: (context) => const EditProductScreen(),
+          },
+          debugShowCheckedModeBanner: false,
+        ),
       ),
     );
   }
