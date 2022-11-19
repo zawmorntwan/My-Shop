@@ -45,8 +45,9 @@ class Products with ChangeNotifier {
   ];
 
   final String authToken;
+  final String userId;
 
-  Products(this.authToken, this._items);
+  Products(this.authToken, this.userId, this._items);
 
   List<Product> get items {
     return [..._items];
@@ -57,7 +58,7 @@ class Products with ChangeNotifier {
   }
 
   Future<void> fetchAndSetProducts() async {
-    Uri url = Uri.parse(
+    var url = Uri.parse(
       '$mainUrl/products.json?auth=$authToken',
     );
     try {
@@ -66,6 +67,11 @@ class Products with ChangeNotifier {
       if (data == null) {
         return;
       }
+      url = Uri.parse(
+        '$mainUrl/userFavorites/$userId.json?auth=$authToken',
+      );
+      final favoriteResponse = await http.get(url);
+      final favoriteData = json.decode(favoriteResponse.body);
       final List<Product> loadedProduct = [];
       data.forEach((productId, productData) {
         loadedProduct.add(
@@ -74,7 +80,11 @@ class Products with ChangeNotifier {
             title: productData['title'],
             description: productData['description'],
             price: productData['price'],
-            isFavorite: productData['isFavorite'],
+            isFavorite: favoriteData == null
+                ? false
+                : favoriteData[productId] == ''
+                    ? false
+                    : favoriteData[productId],
             imageUrl: productData['imageUrl'],
           ),
         );
@@ -99,7 +109,6 @@ class Products with ChangeNotifier {
             'description': product.description,
             'imageUrl': product.imageUrl,
             'price': product.price,
-            'isFavorite': product.isFavorite,
           },
         ),
       );

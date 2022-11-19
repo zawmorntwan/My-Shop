@@ -26,7 +26,10 @@ class ProductCard extends StatelessWidget {
                 color: primaryColor,
               ),
               onPressed: () {
-                product.toggleFavoriteStatus(authData.token);
+                product.toggleFavoriteStatus(
+                  authData.token,
+                  authData.userId!,
+                );
               },
             ),
           ),
