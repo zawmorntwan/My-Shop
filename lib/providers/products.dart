@@ -44,6 +44,10 @@ class Products with ChangeNotifier {
     // ),
   ];
 
+  final String authToken;
+
+  Products(this.authToken, this._items);
+
   List<Product> get items {
     return [..._items];
   }
@@ -54,7 +58,7 @@ class Products with ChangeNotifier {
 
   Future<void> fetchAndSetProducts() async {
     Uri url = Uri.parse(
-      '$mainUrl/products.json',
+      '$mainUrl/products.json?auth=$authToken',
     );
     try {
       final response = await http.get(url);
@@ -84,7 +88,7 @@ class Products with ChangeNotifier {
 
   Future<void> addProduct(Product product) async {
     Uri url = Uri.parse(
-      '$mainUrl/products.json',
+      '$mainUrl/products.json?auth=$authToken',
     );
     try {
       final response = await http.post(
@@ -121,7 +125,7 @@ class Products with ChangeNotifier {
     final productIndex = _items.indexWhere((product) => product.id == id);
     if (productIndex >= 0) {
       Uri url = Uri.parse(
-        '$mainUrl/products/$id.json',
+        '$mainUrl/products/$id.json?auth=$authToken',
       );
       await http.patch(
         url,
@@ -141,7 +145,7 @@ class Products with ChangeNotifier {
 
   Future<void> deleteProduct(String id) async {
     Uri url = Uri.parse(
-      '$mainUrl/products/$id.json',
+      '$mainUrl/products/$id.json?auth=$authToken',
     );
     final existingProductIndex =
         _items.indexWhere((product) => product.id == id);
