@@ -15,19 +15,18 @@ class ProductDetailScreen extends StatelessWidget {
         Provider.of<Products>(context, listen: false).findById(productId);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(loadedProduct.title),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          children: [
-            Container(
-              height: 300,
-              width: double.infinity,
-              margin: const EdgeInsets.only(bottom: 30),
-              child: Hero(
+      // appBar: AppBar(
+      //   title: Text(loadedProduct.title),
+      //   centerTitle: true,
+      // ),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            expandedHeight: 300,
+            pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text(loadedProduct.title),
+              background: Hero(
                 tag: loadedProduct.id,
                 child: Image.network(
                   loadedProduct.imageUrl,
@@ -35,29 +34,38 @@ class ProductDetailScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Text(
-              '\$ ${loadedProduct.price}',
-              style: TextStyle(
-                color: Theme.of(context).primaryColor,
-                fontWeight: FontWeight.bold,
-                fontSize: 30,
-              ),
-            ),
-            Container(
-              width: double.infinity,
-              margin: const EdgeInsets.only(top: 10),
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                loadedProduct.description,
-                textAlign: TextAlign.center,
-                softWrap: true,
-                style: const TextStyle(
-                  fontSize: 16,
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                Text(
+                  '\$ ${loadedProduct.price}',
+                  style: TextStyle(
+                    color: Theme.of(context).primaryColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-              ),
-            )
-          ],
-        ),
+                Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    loadedProduct.description,
+                    textAlign: TextAlign.center,
+                    softWrap: true,
+                    style: const TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 800,)
+              ],
+            ),
+          )
+        ],
+        physics: const BouncingScrollPhysics(),
       ),
     );
   }
